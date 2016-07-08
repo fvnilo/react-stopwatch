@@ -1,6 +1,6 @@
-# redux-stopwatch
+# react-stopwatch
 
-A simple stopwatch example in redux.
+A simple stopwatch example in React.
 
 ## Getting started
 
