@@ -2,9 +2,11 @@
     "env": {
         "browser": true,
         "es6": true,
-        "mocha": true
+        "mocha": true,
+        "node": true
     },
     "extends": "eslint:recommended",
+    "parser": "babel-eslint",
     "parserOptions": {
         "ecmaFeatures": {
             "experimentalObjectRestSpread": true,
@@ -13,7 +15,7 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+      "eslint-plugin-react"
     ],
     "rules": {
         "indent": [
@@ -31,6 +33,8 @@
         "semi": [
             "error",
             "always"
-        ]
+        ],
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error"
     }
 }

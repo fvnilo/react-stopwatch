@@ -1,18 +1,22 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 
-const StopWatch = ({ remainingTime, interval, actions }) => (
-  <div>
-    <h1>
-      Time Remaining: {remainingTime}
-    </h1>
-    <button onClick={actions.startTimer}>Start</button>
-    <button onClick={() => actions.stopTimer(interval)}>Stop</button>
-    <button onClick={actions.resetTimer}>Reset</button>
-  </div>);
+import { observer } from 'mobx-react';
 
-StopWatch.propTypes = {
-  remainingTime: PropTypes.number.isRequired,
-  actions: PropTypes.object.isRequired
-};
+@observer
+class StopWatch extends React.Component {
+  render() {
+    let { timer } = this.props;
+
+    return (
+      <div>
+        <h1>
+          Time Remaining: { timer.timeRemaining }
+        </h1>
+         <button onClick={timer.start.bind(timer)}>Start</button>
+         <button onClick={timer.stop.bind(timer)}>Stop</button>
+         <button onClick={timer.reset.bind(timer)}>Reset</button>
+      </div>);
+  }
+}
 
 export default StopWatch;

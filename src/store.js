@@ -1,14 +1,32 @@
-import { createStore, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
-import createLogger from 'redux-logger';
+import { observable } from 'mobx';
 
-import reducer from 'reducer';
+export default class Store {
+  _intervalToken = null;
 
-const logger = createLogger();
+  @observable timeRemaining = 10;
 
-let createStoreWithMiddleware =
-  applyMiddleware(thunkMiddleware, logger)(createStore);
+  tick() {
+    this.timeRemaining--;
 
-export default function configureStore(initialState) {
-  return createStoreWithMiddleware(reducer, initialState);
+    if (this.timeRemaining === 0) {
+      this.stop();
+    }
+  }
+
+  stop() {
+    if (this._intervalToken) {
+      clearInterval(this._intervalToken);
+      this._intervalToken = null;
+    }
+  }
+
+  start() {
+    if (!this._intervalToken) {
+      this._intervalToken = setInterval(this.tick.bind(this), 1000);
+    }
+  }
+
+  reset() {
+    this.timeRemaining = 10;
+  }
 }

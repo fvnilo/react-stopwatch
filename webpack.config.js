@@ -19,7 +19,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin()
   ],
   resolve: {
-		root: path.resolve(srcFolder),
+    root: path.resolve(srcFolder),
     extensions: ['', '.js', '.jsx']
   },
   module: {

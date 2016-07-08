@@ -1,18 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 
-import createStore from 'store';
-import StopWatchContainer from 'StopWatchContainer';
+import StopWatch from 'StopWatch';
+import Store from 'store';
 
-let store = createStore();
+let store = new Store();
 
-store.subscribe(() => {
-  console.log(store);
-});
-
-ReactDOM.render(
-  <Provider store={store}>
-    <StopWatchContainer />
-  </Provider>,
-  document.getElementById('root'));
+ReactDOM.render(<StopWatch timer={store}/>, document.getElementById('root'));
