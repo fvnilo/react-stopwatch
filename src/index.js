@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import StopWatch from 'StopWatch';
-import Store from 'store';
+import storeFactory from 'store';
 
-let store = new Store();
+let store = storeFactory();
 
 ReactDOM.render(<StopWatch timer={store}/>, document.getElementById('root'));

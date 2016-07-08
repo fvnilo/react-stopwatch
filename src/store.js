@@ -1,32 +1,47 @@
-import { observable } from 'mobx';
+ import mobx from 'mobx';
 
-export default class Store {
-  _intervalToken = null;
+ function createStore() {
+   let intervalToken = null;
 
-  @observable timeRemaining = 10;
+   function tick(store) {
+     store.timeRemaining--;
 
-  tick() {
-    this.timeRemaining--;
+     if (store.timeRemaining === 0) {
+       store.stop();
+     }
+   }
 
-    if (this.timeRemaining === 0) {
-      this.stop();
-    }
-  }
+   let store = {
+     timeRemaining: null,
 
-  stop() {
-    if (this._intervalToken) {
-      clearInterval(this._intervalToken);
-      this._intervalToken = null;
-    }
-  }
+     stop: function stop() {
+       if (intervalToken) {
+         clearInterval(intervalToken);
+         intervalToken = null;
+       }
+     },
 
-  start() {
-    if (!this._intervalToken) {
-      this._intervalToken = setInterval(this.tick.bind(this), 1000);
-    }
-  }
+     start: function start() {
+       if (!intervalToken) {
+         intervalToken = setInterval(function() {
+           tick(store);
+         }, 1000);
+       }
+     },
 
-  reset() {
-    this.timeRemaining = 10;
-  }
-}
+     reset: function reset() {
+       store.timeRemaining = 10;
+     }
+   };
+
+   return store;
+ }
+
+ export default function storeFactory() {
+   let store = createStore();
+   let observables = { timeRemaining: 10 };
+
+   mobx.extendObservable(store, observables);
+
+   return store;
+ }
