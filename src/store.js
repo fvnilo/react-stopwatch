@@ -3,25 +3,25 @@
  function createStore() {
    let intervalToken = null;
 
-   function tick(store) {
+   const tick = store => {
      store.timeRemaining--;
 
      if (store.timeRemaining === 0) {
        store.stop();
      }
-   }
+   };
 
    let store = {
      timeRemaining: null,
 
-     stop: function stop() {
+     stop: () => {
        if (intervalToken) {
          clearInterval(intervalToken);
          intervalToken = null;
        }
      },
 
-     start: function start() {
+     start: () => {
        if (!intervalToken) {
          intervalToken = setInterval(function() {
            tick(store);
@@ -29,7 +29,7 @@
        }
      },
 
-     reset: function reset() {
+     reset: () => {
        store.timeRemaining = 10;
      }
    };
