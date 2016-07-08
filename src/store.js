@@ -14,14 +14,14 @@
    let store = {
      timeRemaining: null,
 
-     stop: () => {
+     stop() {
        if (intervalToken) {
          clearInterval(intervalToken);
          intervalToken = null;
        }
      },
 
-     start: () => {
+     start() {
        if (!intervalToken) {
          intervalToken = setInterval(function() {
            tick(store);
@@ -29,7 +29,7 @@
        }
      },
 
-     reset: () => {
+     reset() {
        store.timeRemaining = 10;
      }
    };
