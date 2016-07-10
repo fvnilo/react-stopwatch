@@ -1,4 +1,4 @@
-import { createMobxStore } from 'utils';
+import { createMobxStore } from 'mobx-noclass';
 
 const tick = store => {
   store.timeRemaining--;
