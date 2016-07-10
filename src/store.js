@@ -1,3 +1,4 @@
+import { action } from 'mobx';
 import { createMobxStore } from 'mobx-noclass';
 
 const tick = store => {
@@ -20,6 +21,7 @@ export default function storeFactory() {
       }
     },
     {
+      @action
       stop() {
         if (intervalToken) {
           clearInterval(intervalToken);
@@ -27,16 +29,18 @@ export default function storeFactory() {
         }
       },
 
+      @action
       start() {
         let self = this;
 
+        const tickAction = action(() => tick(self));
+
         if (!intervalToken) {
-          intervalToken = setInterval(function() {
-            tick(self);
-          }, 1000);
+          intervalToken = setInterval(tickAction, 1000);
         }
       },
 
+      @action
       reset() {
         this.timeRemaining = 10;
       }
