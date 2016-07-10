@@ -13,7 +13,11 @@ export default function storeFactory() {
 
   return createMobxStore(
     {
-      timeRemaining: 10
+      timeRemaining: 10,
+
+      elapsed() {
+        return 10 - this.timeRemaining;
+      }
     },
     {
       stop() {
